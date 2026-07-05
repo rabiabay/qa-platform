@@ -1,0 +1,17 @@
+# Python gereksizleri
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Gizli dosyalar
+backend/.env
+
+# React / Node gereksizleri
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+# IDE ve Sistem gereksizleri
+.idea/
+.vscode/
+.DS_Store

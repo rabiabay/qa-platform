@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QARA Recorder</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { width: 320px; font-family: -apple-system, sans-serif; background: #f5f5f5; }
+    .header { background: #26215C; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .header-title { color: #EEEDFE; font-size: 16px; font-weight: 700; letter-spacing: 2px; }
+    .header-sub { color: #AFA9EC; font-size: 9px; margin-top: 2px; letter-spacing: 1px; }
+    .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+    .status-active { background: #1D9E75; color: white; }
+    .status-inactive { background: rgba(255,255,255,0.15); color: #AFA9EC; }
+    .body { padding: 14px; }
+    .input-group { margin-bottom: 10px; }
+    .input-group label { font-size: 11px; color: #666; display: block; margin-bottom: 4px; }
+    .input-group input { width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; outline: none; }
+    .btn { width: 100%; padding: 9px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; margin-bottom: 8px; }
+    .btn-start { background: #1D9E75; color: white; }
+    .btn-stop { background: #E24B4A; color: white; }
+    .btn-save { background: #534AB7; color: white; }
+    .btn-disabled { background: #ddd; color: #999; cursor: not-allowed; }
+    .steps-container { margin-top: 10px; }
+    .steps-title { font-size: 11px; font-weight: 600; color: #333; margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .step-item { background: white; border: 1px solid #eee; border-radius: 6px; padding: 7px 10px; margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between; }
+    .step-num { width: 18px; height: 18px; border-radius: 50%; background: #EEEDFE; color: #3C3489; font-size: 9px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-info { flex: 1; margin: 0 8px; }
+    .step-type { font-size: 10px; font-weight: 500; color: #534AB7; }
+    .step-desc { font-size: 10px; color: #888; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+    .step-del { color: #E24B4A; cursor: pointer; font-size: 14px; }
+    .empty-state { text-align: center; padding: 16px; color: #aaa; font-size: 12px; }
+    .login-section { padding: 14px; }
+    .login-title { font-size: 12px; font-weight: 600; color: #333; margin-bottom: 8px; }
+    .alert { padding: 8px 10px; border-radius: 6px; font-size: 11px; margin-bottom: 8px; }
+    .alert-success { background: #EAF3DE; color: #3B6D11; }
+    .alert-error { background: #FCEBEB; color: #A32D2D; }
+    #loginSection { display: block; }
+    #mainSection { display: none; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <div class="header-title">QARA</div>
+      <div class="header-sub">TEST · AI · OTOMASYON</div>
+    </div>
+    <span id="statusBadge" class="status-badge status-inactive">Beklemede</span>
+  </div>
+
+  <div id="loginSection" class="login-section">
+    <div class="login-title">Giriş Yap</div>
+    <div id="loginAlert"></div>
+    <div class="input-group">
+      <label>E-posta</label>
+      <input type="email" id="loginEmail" placeholder="ornek@sirket.com">
+    </div>
+    <div class="input-group">
+      <label>Şifre</label>
+      <input type="password" id="loginPassword" placeholder="••••••••">
+    </div>
+    <button class="btn btn-save" id="loginBtn">Giriş Yap</button>
+  </div>
+
+  <div id="mainSection" class="body">
+    <div id="alert"></div>
+    <div class="input-group">
+      <label>Senaryo Adı</label>
+      <input type="text" id="scenarioName" placeholder="Örn: Login Akışı Testi">
+    </div>
+    <div class="input-group">
+      <label>Proje ID</label>
+      <input type="number" id="projectId" placeholder="1">
+    </div>
+    <button class="btn btn-start" id="startBtn">▶ Kaydı Başlat</button>
+    <button class="btn btn-stop btn-disabled" id="stopBtn" disabled>■ Kaydı Durdur</button>
+    <button class="btn btn-save btn-disabled" id="saveBtn" disabled>↑ Platforma Kaydet</button>
+
+    <div class="steps-container">
+      <div class="steps-title">
+        <span>Kaydedilen Adımlar</span>
+        <span id="stepCount">0 adım</span>
+      </div>
+      <div id="stepsList">
+        <div class="empty-state">Henüz adım kaydedilmedi.<br>Kaydı başlatıp web sitesinde gezinin.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+@echo off
+echo QA Platform baslatılıyor...
+start cmd /k "cd /d C:\Users\abayr\qa-platform\backend && venv\Scripts\activate && uvicorn app.main:app --reload"
+timeout /t 3
+start cmd /k "cd /d C:\Users\abayr\qa-platform\frontend && npm start"
